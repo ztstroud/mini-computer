@@ -13,6 +13,10 @@ increment PC so that it is ready for the next execution of Phase One.
 ### Phase Two
 Execute the instruction in InstrReg.
 
-## ALU
+## Modules
+### ALU
 The ALU always performs computations on the target and argument registers.
+
+### Instruction Register
+The instruction register stores the instruction to execute. It stores whatever is being pulled out of RAM.
 
