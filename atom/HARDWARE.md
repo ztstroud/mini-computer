@@ -20,3 +20,7 @@ The ALU always performs computations on the target and argument registers.
 ### Instruction Register
 The instruction register stores the instruction to execute. It stores whatever is being pulled out of RAM.
 
+### PC
+The PC stores the address of the next instruction to execute, and is used as the address in RAM so that it can be
+loaded.
+
