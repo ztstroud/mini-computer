@@ -13,3 +13,6 @@ increment PC so that it is ready for the next execution of Phase One.
 ### Phase Two
 Execute the instruction in InstrReg.
 
+## ALU
+The ALU always performs computations on the target and argument registers.
+
