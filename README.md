@@ -17,3 +17,6 @@ The Digital file describing the hardware. This file can be opened with Digital t
 ### `INSTR.md`
 A markdown file that documents the instructions supported by the simulated hardware.
 
+### `HARDWARE.md`
+A markdown file that documents details about the hardware.
+
