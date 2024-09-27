@@ -136,11 +136,6 @@
     </visualElement>
     <visualElement>
       <elementName>In</elementName>
-      <elementAttributes/>
-      <pos x="740" y="60"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
       <elementAttributes>
         <entry>
           <string>Bits</string>
@@ -235,11 +230,6 @@
       <elementName>In</elementName>
       <elementAttributes/>
       <pos x="540" y="20"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes/>
-      <pos x="540" y="60"/>
     </visualElement>
     <visualElement>
       <elementName>Tunnel</elementName>
@@ -353,6 +343,39 @@
         </entry>
       </elementAttributes>
       <pos x="80" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>InstrL</string>
+        </entry>
+      </elementAttributes>
+      <pos x="740" y="60"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes/>
+      <pos x="540" y="60"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>InstrEx</string>
+        </entry>
+      </elementAttributes>
+      <pos x="900" y="60"/>
     </visualElement>
   </visualElements>
   <wires>
@@ -501,16 +524,20 @@
       <p2 x="760" y="60"/>
     </wire>
     <wire>
-      <p1 x="540" y="60"/>
-      <p2 x="560" y="60"/>
-    </wire>
-    <wire>
       <p1 x="260" y="60"/>
       <p2 x="280" y="60"/>
     </wire>
     <wire>
       <p1 x="1040" y="60"/>
       <p2 x="1060" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="60"/>
+      <p2 x="560" y="60"/>
+    </wire>
+    <wire>
+      <p1 x="900" y="60"/>
+      <p2 x="920" y="60"/>
     </wire>
     <wire>
       <p1 x="200" y="220"/>
