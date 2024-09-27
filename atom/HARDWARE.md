@@ -24,3 +24,7 @@ The instruction register stores the instruction to execute. It stores whatever i
 The PC stores the address of the next instruction to execute, and is used as the address in RAM so that it can be
 loaded.
 
+### Control
+The control circuit is responsible for setting controls signals based on an instruction. It implements the instructions
+in INSTR.md.
+
