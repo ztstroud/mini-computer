@@ -51,3 +51,7 @@ Supported register operations are defined below:
 Loading low sets the lower 8 bits of a register to a value specified in the instruction. The four bits [8-11] specify
 which register is being set, and the 8 bits [0-7] are the value to set: `0010TTTTIIIIIIII`.
 
+### `0011` Load high
+Loading high sets the upper 8 bits of a register to a value specified in the instruction. The four bits [8-11] specify
+which register is being set, and the 8 bits [0-7] are the value to set: `0011TTTTIIIIIIII`.
+
