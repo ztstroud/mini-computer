@@ -47,3 +47,7 @@ Supported register operations are defined below:
 | `1110` | Reserved               | Reserved            | Reserved |
 | `1111` | Reserved               | Reserved            | Reserved |
 
+### `0010` Load low
+Loading low sets the lower 8 bits of a register to a value specified in the instruction. The four bits [8-11] specify
+which register is being set, and the 8 bits [0-7] are the value to set: `0010TTTTIIIIIIII`.
+
