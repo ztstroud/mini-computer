@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <circuit>
   <version>2</version>
-  <attributes/>
+  <attributes>
+    <entry>
+      <string>bigEndianSetting</string>
+      <boolean>true</boolean>
+    </entry>
+    <entry>
+      <string>romContent</string>
+      <romList>
+        <roms/>
+      </romList>
+    </entry>
+    <entry>
+      <string>preloadProgram</string>
+      <boolean>true</boolean>
+    </entry>
+  </attributes>
   <visualElements>
     <visualElement>
       <elementName>Clock</elementName>
@@ -183,6 +198,10 @@
         <entry>
           <string>AddrBits</string>
           <int>16</int>
+        </entry>
+        <entry>
+          <string>isProgramMemory</string>
+          <boolean>true</boolean>
         </entry>
         <entry>
           <string>Bits</string>
