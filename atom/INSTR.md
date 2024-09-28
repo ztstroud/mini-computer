@@ -24,7 +24,10 @@ treated as a reserved instruction.
 Register operations perform computations. All register operations specify a register operation in bits [8-11], a target
 register in bits [4-7], and an argument register in bits [0-3]: `0001RRRRTTTTAAAA`.
 
-When a register operation is performed, the target register is updated to contain the result of the computation.
+When a register operation is performed, the target register is updated to contain the result of the computation with the
+exception of the compare operation.
+
+The ALU flags will be set based upon the result of the computation, and saved for use in later instructions.
 
 Supported register operations are defined below:
 
@@ -33,7 +36,7 @@ Supported register operations are defined below:
 | `0000` | Add                    | target + argument   | Adds the argument to the target |
 | `0001` | Subtract               | target - argument   | Subtract the argument from the target |
 | `0010` | Move                   | argument            | Move the argument to the target |
-| `0011` | Reserved               | Reserved            | Reserved |
+| `0011` | Compare                | target - argument   | Subtract the argument from the target without modifying it |
 | `0100` | Reserved               | Reserved            | Reserved |
 | `0101` | Reserved               | Reserved            | Reserved |
 | `0110` | Reserved               | Reserved            | Reserved |
