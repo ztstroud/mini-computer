@@ -146,11 +146,6 @@
     <visualElement>
       <elementName>In</elementName>
       <elementAttributes/>
-      <pos x="260" y="-20"/>
-    </visualElement>
-    <visualElement>
-      <elementName>In</elementName>
-      <elementAttributes/>
       <pos x="260" y="20"/>
     </visualElement>
     <visualElement>
@@ -516,6 +511,20 @@
         </entry>
       </elementAttributes>
       <pos x="1300" y="340"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>rotation</string>
+          <rotation rotation="2"/>
+        </entry>
+        <entry>
+          <string>NetName</string>
+          <string>InstrL</string>
+        </entry>
+      </elementAttributes>
+      <pos x="260" y="-20"/>
     </visualElement>
   </visualElements>
   <wires>

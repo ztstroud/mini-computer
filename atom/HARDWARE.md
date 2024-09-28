@@ -6,11 +6,11 @@ address.
 
 To do this, we break the execution of an instruction into two phases.
 
-### Phase One
+### Phase One (Loading Phase)
 Load the instruction from RAM into InstrReg. The address of the instruction is the value of PC. As we do this, we also
 increment PC so that it is ready for the next execution of Phase One.
 
-### Phase Two
+### Phase Two (Execution Phase)
 Execute the instruction in InstrReg.
 
 ## Modules
@@ -23,6 +23,9 @@ The instruction register stores the instruction to execute. It stores whatever i
 ### PC
 The PC stores the address of the next instruction to execute, and is used as the address in RAM so that it can be
 loaded.
+
+The PC increments during the loading phase of execution, which means that it has the address of the next instruction
+during the execution phase.
 
 ### Control
 The control circuit is responsible for setting controls signals based on an instruction. It implements the instructions
