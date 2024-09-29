@@ -14,12 +14,13 @@ The Atom computer uses 16 bit instructions. The 4 highest of these bits [12-15] 
 | `0100` | Jump |
 
 ### `0000` General
-General operations contain generic operations that don't fit into other categories.
+General operations contain generic operations that don't fit into other categories. The following instructions are
+defined:
 
-Currently, there is only one generic operation: `noop`. `noop` is an instruction of all zeros, `0000000000000000`.
+| `0000000000000000` | Noop | Do nothing |
+| `0000FFFFFFFFFFFF` | Halt | Stop computation |
 
-This section will be revised as more generic operations are added. Any general instruction other than `noop` should be
-treated as a reserved instruction.
+All others are reserved. This section will be revised as more generic operations are added.
 
 ### `0001` Register Operation
 Register operations perform computations. All register operations specify a register operation in bits [8-11], a target
