@@ -62,11 +62,24 @@ which register is being set, and the 8 bits [0-7] are the value to set: `0011TTT
 
 ### `0100` Jump
 Jump instructions allow you to change the PC, changing where the program is executing. The four bits [8-11] specify the
-type of jump (detailed below) and the 8 bits [0-7] are a signed 8 bit offset value: `0100JJJJIIIIIIII`.
+type of jump and the 8 bits [0-7] are a signed 8 bit offset value: `0100JJJJIIIIIIII`.
 
 The jump offset is relative to the value of the PC, which will be pointing to the *next* instruction to execute. This
 means that a value of 0 is essentially a no-op, continuing to the next instruction. A value of -1 will execute the jump
 again, and will stall the computer.
+
+Jump types are documented in HARDWARE.md.
+
+### `0101` Register Jump
+Register jump instructions allow you to change the PC using values from a register. The four bits [8-11] specify the
+type of jump, the bit [4] specifies if the jump is relative (high) or absolute (low), and the four bits [0-3] specify
+the register to use: `0101JJJJXXXRAAAA`.
+
+If the jump is relative, the value from the register is added to the PC. The same considerations that the Jump
+instruction above apply.
+
+If the jump is absolute, the PC is updated to the value of the register. Since the PC specifies the next instruction,
+this address will be the exact address of the instruction to jump to.
 
 Jump types are documented in HARDWARE.md.
 
