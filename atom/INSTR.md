@@ -11,6 +11,7 @@ The Atom computer uses 16 bit instructions. The 4 highest of these bits [12-15] 
 | `0001` | Register operation |
 | `0010` | Load low |
 | `0011` | Load high |
+| `0100` | Jump |
 
 ### `0000` General
 General operations contain generic operations that don't fit into other categories.
@@ -57,4 +58,14 @@ which register is being set, and the 8 bits [0-7] are the value to set: `0010TTT
 ### `0011` Load high
 Loading high sets the upper 8 bits of a register to a value specified in the instruction. The four bits [8-11] specify
 which register is being set, and the 8 bits [0-7] are the value to set: `0011TTTTIIIIIIII`.
+
+### `0100` Jump
+Jump instructions allow you to change the PC, changing where the program is executing. The four bits [8-11] specify the
+type of jump (detailed below) and the 8 bits [0-7] are a signed 8 bit offset value: `0100JJJJIIIIIIII`.
+
+The jump offset is relative to the value of the PC, which will be pointing to the *next* instruction to execute. This
+means that a value of 0 is essentially a no-op, continuing to the next instruction. A value of -1 will execute the jump
+again, and will stall the computer.
+
+Jump types are documented in HARDWARE.md.
 

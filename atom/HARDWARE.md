@@ -36,3 +36,22 @@ in INSTR.md.
 ### Jump Decider
 The jump decider contains the logic that determine if we should jump based upon a jump type and flags from the ALU.
 
+| Jump Type | Name                           | Description |
+| --------- | ------------------------------ | --- |
+| 0000      | Equal                          | Jump if the last operation resulted in a zero |
+| 0001      | Not equal                      | Jump if the last operation did not result in a zero |
+| 0010      | Overflow                       | Jump if the last operation resulted in signed overflow |
+| 0011      | Negative                       | Jump if the last operation resulted in a negative signed value |
+| 0100      | Unsigned less than             | Jump if the the target was less than the argument in the last operation (only well defined for subtraction) |
+| 0101      | Unsigned less than or equal    | Jump if the the target was less than or equal to the argument in the last operaiton (only well defined for subtraction) |
+| 0110      | Unsigned greater than          | Jump if the the target was greater than the argument in the last operation (only well defined for subtraction) |
+| 0111      | Unsigned greater than or equal | Jump if the the target was greater than or equal to the argument in the last operation (only well defined for subtraction) |
+| 1000      | Signed less than               | Jump if the the target was less than the argument in the last operation (only well defined for subtraction) |
+| 1001      | Signed less than or equal      | Jump if the the target was less than or equal to the argument in the last operaiton (only well defined for subtraction) |
+| 1010      | Signed greater than            | Jump if the the target was greater than the argument in the last operation (only well defined for subtraction) |
+| 1011      | Signed greater than or equal   | Jump if the the target was greater than or equal to the argument in the last operation (only well defined for subtraction) |
+| 1100      | Reserved                       | Reserved |
+| 1101      | Reserved                       | Reserved |
+| 1110      | Reserved                       | Reserved |
+| 1111      | Always                         | Always jump |
+
