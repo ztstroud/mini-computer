@@ -33,3 +33,6 @@ during the execution phase.
 The control circuit is responsible for setting controls signals based on an instruction. It implements the instructions
 in INSTR.md.
 
+### Jump Decider
+The jump decider contains the logic that determine if we should jump based upon a jump type and flags from the ALU.
+
