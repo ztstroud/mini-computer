@@ -12,6 +12,7 @@ The Atom computer uses 16 bit instructions. The 4 highest of these bits [12-15] 
 | `0010` | Load low |
 | `0011` | Load high |
 | `0100` | Jump |
+| `0101` | Register jump |
 
 ### `0000` General
 General operations contain generic operations that don't fit into other categories. The following instructions are
