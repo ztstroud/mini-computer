@@ -13,6 +13,8 @@ The Atom computer uses 16 bit instructions. The 4 highest of these bits [12-15] 
 | `0011` | Load high |
 | `0100` | Jump |
 | `0101` | Register jump |
+| `0110` | Memory Read |
+| `0111` | Memory Write |
 
 ### `0000` General
 General operations contain generic operations that don't fit into other categories. The following instructions are
@@ -83,4 +85,13 @@ If the jump is absolute, the PC is updated to the value of the register. Since t
 this address will be the exact address of the instruction to jump to.
 
 Jump types are documented in HARDWARE.md.
+
+### `0110` Memory Read and `0111` Memory Write
+Memory reads and writes allow you to read data from and RAM. Both instructions have them same format. The four bits
+[8-11] specify an unsigned immediate value, the four bits [4-7] specify a data register, the four bits [0-3] specify the
+address register: `011XIIIIDDDDAAAA`.
+
+These instructions operate on an address in memory, calculate by adding the immediate value to the unsigned value of the
+address register. When reading, the value in that address is put into the data register. When writing, the value in the
+data register is written to that address.
 
