@@ -13,3 +13,13 @@ completed by halting.
 #### Expectation
 The computer is halted.
 
+### Set low and high (set.bin)
+This test check if the set low and set high instructions work, and that they can be used together.
+
+#### Expectation
+| Register | Value |
+| -------- | ----- |
+|       r0 | 0x00AB |
+|       r1 | 0xCD00 |
+|       r2 | 0x2357 |
+
