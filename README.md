@@ -20,3 +20,6 @@ A markdown file that documents the instructions supported by the simulated hardw
 ### `HARDWARE.md`
 A markdown file that documents details about the hardware.
 
+### `TEST.md`
+A markdown file that document details about test cases for the hardware.
+
