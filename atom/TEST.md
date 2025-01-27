@@ -23,3 +23,13 @@ This test check if the set low and set high instructions work, and that they can
 |       r1 | 0xCD00 |
 |       r2 | 0x2357 |
 
+### Arithmetic (arithmetic.bin)
+This test checks that adding, subtracting, and moving values works correctly.
+
+#### Expectation
+| Register | Value |
+| -------- | ----- |
+|       r0 | 0x000A |
+|       r1 | 0x0002 |
+|       r2 | 0x0008 |
+
