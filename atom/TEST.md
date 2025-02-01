@@ -63,3 +63,17 @@ failed (detailed below). Once one test case fails, the computer halts, so only o
 | 0x0012 | signed less than failed |
 | 0x0013 | signed less than or equal failed (greater than) |
 | 0x0014 | signed less than or equal failed (equal) |
+
+### Register jump (registerjump.bin)
+Tests that register jumps work correctly. Because the jump types are shared, these tests do not exercise all types. It
+exercises both relative and absolute register jumps.
+
+#### Expectation
+Upon halting, r0 indicates the result of the test. If it is zero, the test was successful. If non-zero, a test case
+failed (detailed below). Once one test case fails, the computer halts, so only one error is reported at a time.
+
+#### Errors
+| r0 value | Test name |
+| -------- | --------- |
+| 0x0001 | relative jump failed |
+| 0x0002 | absolute jump failed |
