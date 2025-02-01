@@ -33,3 +33,33 @@ This test checks that adding, subtracting, and moving values works correctly.
 |       r1 | 0x0002 |
 |       r2 | 0x0008 |
 
+### Compare and jump (cmpjump.bin)
+Tests that compare and jump operations work. All jump types are exercised.
+
+#### Expectation
+Upon halting, r0 indicates the result of the test. If it is zero, the test was successful. If non-zero, a test case
+failed (detailed below). Once one test case fails, the computer halts, so only one error is reported at a time.
+
+#### Errors
+| r0 value | Test name |
+| -------- | --------- |
+| 0x0001 | always jump failed |
+| 0x0002 | jump equal failed |
+| 0x0003 | jump not equal failed |
+| 0x0004 | addition carry failed |
+| 0x0005 | subtraction carry failed |
+| 0x0006 | signed positive subtract negative overflow failed |
+| 0x0007 | signed negative subtract positive overflow failed |
+| 0x0008 | negative failed |
+| 0x0009 | unsigned less than failed |
+| 0x000A | unsigned less than or equal failed (less than) |
+| 0x000B | unsigned less than or equal failed (equal) |
+| 0x000C | unsigned greater than failed |
+| 0x000D | unsigned greater than or equal failed (greater than) |
+| 0x000E | unsigned greater than or equal failed (equal) |
+| 0x000F | signed less than failed |
+| 0x0010 | signed less than or equal failed (less than) |
+| 0x0011 | signed less than or equal failed (equal) |
+| 0x0012 | signed less than failed |
+| 0x0013 | signed less than or equal failed (greater than) |
+| 0x0014 | signed less than or equal failed (equal) |
