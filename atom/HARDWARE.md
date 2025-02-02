@@ -59,3 +59,6 @@ The jump decider contains the logic that determine if we should jump based upon 
 ### Overwriter
 The overwriter is a circuit that handles replacing the high or low bits of a 16 bit values with an 8 bit value.
 
+### Address Calculator
+The addrCalc circuit computes an address by adding an 8 bit offset to a 16 bit base value.
+
