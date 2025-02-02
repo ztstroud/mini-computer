@@ -17,7 +17,8 @@ Execute the instruction in InstrReg.
 ### ALU
 The ALU always performs computations on the target and argument registers.
 
-When the output of the ALU is written to the data bus, the flags are saved in the flag register.
+When the output of the ALU is written to the data bus, the flags are saved in the flag register. The value of the flags
+is always visible in `Fl`.
 
 ### Instruction Register
 The instruction register stores the instruction to execute. It stores whatever is being pulled out of RAM.
