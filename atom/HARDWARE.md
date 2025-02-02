@@ -55,3 +55,6 @@ The jump decider contains the logic that determine if we should jump based upon 
 | 1110      | Reserved                       | Reserved |
 | 1111      | Always                         | Always jump |
 
+### Overwriter
+The overwriter is a circuit that handles replacing the high or low bits of a 16 bit values with an 8 bit value.
+
