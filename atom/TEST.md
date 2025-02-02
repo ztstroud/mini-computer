@@ -77,3 +77,11 @@ failed (detailed below). Once one test case fails, the computer halts, so only o
 | -------- | --------- |
 | 0x0001 | relative jump failed |
 | 0x0002 | absolute jump failed |
+
+### Memory read/write (readwrite.bin)
+Tests that read and write instructions work correctly.
+
+#### Expectation
+| Memory address | Value |
+| -------------- | ----- |
+| 0x0010 | 0x0010 |
