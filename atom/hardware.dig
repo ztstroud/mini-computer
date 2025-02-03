@@ -483,7 +483,7 @@
         </entry>
         <entry>
           <string>NetName</string>
-          <string>RTD</string>
+          <string>WMem</string>
         </entry>
       </elementAttributes>
       <pos x="560" y="180"/>
@@ -777,6 +777,16 @@
         </entry>
       </elementAttributes>
       <pos x="60" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes>
+        <entry>
+          <string>NetName</string>
+          <string>WMem</string>
+        </entry>
+      </elementAttributes>
+      <pos x="1040" y="500"/>
     </visualElement>
   </visualElements>
   <wires>
