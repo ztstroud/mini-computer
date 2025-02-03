@@ -62,3 +62,6 @@ The overwriter is a circuit that handles replacing the high or low bits of a 16 
 ### Address Calculator
 The addrCalc circuit computes an address by adding an 8 bit offset to a 16 bit base value.
 
+## The Stack
+Memory addresses `0x8000` through `0xFFFF` are reserved for the stack. The stack saves values for procedure calls.
+

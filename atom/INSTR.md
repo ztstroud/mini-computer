@@ -15,6 +15,7 @@ The Atom computer uses 16 bit instructions. The 4 highest of these bits [12-15] 
 | `0101` | Register jump |
 | `0110` | Memory Read |
 | `0111` | Memory Write |
+| `1000` | Call |
 
 ### `0000` General
 General operations contain generic operations that don't fit into other categories. The following instructions are
@@ -94,4 +95,12 @@ address register: `011XIIIIDDDDAAAA`.
 These instructions operate on an address in memory, calculate by adding the immediate value to the unsigned value of the
 address register. When reading, the value in that address is put into the data register. When writing, the value in the
 data register is written to that address.
+
+### `1000` Call
+Call performs a jump and saves the return location to the stack, enabling procedure calls. Bit 11 determines if the jump
+is relative with an immediate (0) or jumps to the address in a register (1).
+
+If jumping with an immediate, the bits [0-7] are the immediate value: `10000XXXIIIIIIII`.
+
+If jumping with a register, the bits [0-3] identify the address register: `10001XXXXXXXAAAA`.
 
