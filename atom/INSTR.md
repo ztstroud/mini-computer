@@ -22,6 +22,7 @@ General operations contain generic operations that don't fit into other categori
 defined:
 
 | `0000000000000000` | Noop | Do nothing |
+| `0000000000000001` | Ret | Pop the top value from the stack and jump to it |
 | `0000FFFFFFFFFFFF` | Halt | Stop computation |
 
 All others are reserved. This section will be revised as more generic operations are added.
