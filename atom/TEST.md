@@ -85,3 +85,27 @@ Tests that read and write instructions work correctly.
 | Memory address | Value |
 | -------------- | ----- |
 | 0x0010 | 0x0010 |
+
+### Procedures (proc.bin)
+Tests that procedure calls function as jumps and that returns go back to where they came from.
+
+#### Expectation
+| Register | Value |
+| -------- | ----- |
+|       r0 | 0x0001 |
+|       r1 | 0x0001 |
+|       r2 | 0x0001 |
+
+If r1 is 0x0000, then the call did not jump.
+
+If r2 is 0x0000, the return failed to jump.
+
+
+### Recursive Procedures (recurse.bin)
+Tests that a procedure can call itself.
+
+#### Expectation
+| Register | Value |
+| -------- | ----- |
+|       r0 | 0x0000 |
+|       r1 | 0x0001 |

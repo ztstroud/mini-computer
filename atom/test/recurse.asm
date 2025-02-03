@@ -1,0 +1,11 @@
+SETLO r0 0x05
+SETLO r1 0x01
+
+CALL 0x01;>proc
+HALT
+
+;=proc
+SUB r0 r1
+JEQ 0x01
+CALL 0xFD;>proc
+RET
