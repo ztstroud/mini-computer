@@ -121,3 +121,12 @@ Tests that values can be pushed to the stack.
 | 0x8002 | 0x1234 |
 | 0x8003 | 0x5678 |
 
+### Popping Values (pop.bin)
+Tests that values that have been pushed to the stack can be recovered by popping.
+
+#### Expectation
+| Register | Value |
+| -------- | ----- |
+|       r0 | 0xDEAD |
+|       r1 | 0xBEEF |
+

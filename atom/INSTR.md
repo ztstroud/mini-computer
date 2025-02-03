@@ -35,6 +35,7 @@ register used in the operation, and `XXXX` is the operation type.
 | Operation | Description |
 | --------- | ----------- |
 | `0000` | Push the value of the register `TTTT` onto the stack |
+| `0001` | Pop a value from the stack into register `TTTT` |
 
 ### `0001` Register Operation
 Register operations perform computations. All register operations specify a register operation in bits [8-11], a target
