@@ -23,9 +23,18 @@ defined:
 
 | `0000000000000000` | Noop | Do nothing |
 | `0000000000000001` | Ret | Pop the top value from the stack and jump to it |
+| `00000001TTTTXXXX` | | Single register operations |
 | `0000FFFFFFFFFFFF` | Halt | Stop computation |
 
 All others are reserved. This section will be revised as more generic operations are added.
+
+#### `Single Register Operations`
+These operations operate on a single register. Instructions have the form `00000001TTTTXXXX` where `TTTT` is the
+register used in the operation, and `XXXX` is the operation type.
+
+| Operation | Description |
+| --------- | ----------- |
+| `0000` | Push the value of the register `TTTT` onto the stack |
 
 ### `0001` Register Operation
 Register operations perform computations. All register operations specify a register operation in bits [8-11], a target

@@ -109,3 +109,15 @@ Tests that a procedure can call itself.
 | -------- | ----- |
 |       r0 | 0x0000 |
 |       r1 | 0x0001 |
+
+### Pushing Values (push.bin)
+Tests that values can be pushed to the stack.
+
+#### Expectation
+| Memory address | Value |
+| -------------- | ----- |
+| 0x8000 | 0xDEAD |
+| 0x8001 | 0xBEEF |
+| 0x8002 | 0x1234 |
+| 0x8003 | 0x5678 |
+
