@@ -130,3 +130,15 @@ Tests that values that have been pushed to the stack can be recovered by popping
 |       r0 | 0xDEAD |
 |       r1 | 0xBEEF |
 
+### Peripheral I/O (io.bin)
+Tests that values can be sent to and from a peripheral device.
+
+This test assumes that the peripheral P0 is memory, meaning that you can write
+and read back a value from the address.
+
+#### Expectation
+| Register | Value |
+| -------- | ----- |
+|       r0 | 0x0001 |
+|       r1 | 0xDEAD |
+

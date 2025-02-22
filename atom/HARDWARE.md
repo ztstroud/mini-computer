@@ -70,5 +70,9 @@ Peripherals are external devices that Atom can communicate with. Atom supports f
 to and requested from peripherals at addresses. In addition, you can read 16 flags from each peripheral, which the
 peripheral can use to tell you about its state.
 
-The full specification for peripherals is not defined yet.
+The full specification for peripherals is not defined yet. Currently, peripherals take an address, data, read and write
+signals, and a clock signal. They output data and flags.
+
+### Storage
+Storage is additional memory that persists even without power.
 

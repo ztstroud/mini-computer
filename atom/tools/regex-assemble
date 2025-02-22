@@ -68,6 +68,19 @@
 %s/^PUSH\s\+r\([0-9a-fA-F]\).*$/01\10/e
 %s/^POP\s\+r\([0-9a-fA-F]\).*$/01\11/e
 
+%s/^P0WRITE\s\+r\([0-9a-fA-F]\)\s\+r\([0-9a-fA-F]\).*$/90\2\1/e
+%s/^P1WRITE\s\+r\([0-9a-fA-F]\)\s\+r\([0-9a-fA-F]\).*$/94\2\1/e
+%s/^P2WRITE\s\+r\([0-9a-fA-F]\)\s\+r\([0-9a-fA-F]\).*$/98\2\1/e
+%s/^P3WRITE\s\+r\([0-9a-fA-F]\)\s\+r\([0-9a-fA-F]\).*$/9C\2\1/e
+%s/^P0READ\s\+r\([0-9a-fA-F]\)\s\+r\([0-9a-fA-F]\).*$/91\2\1/e
+%s/^P1READ\s\+r\([0-9a-fA-F]\)\s\+r\([0-9a-fA-F]\).*$/95\2\1/e
+%s/^P2READ\s\+r\([0-9a-fA-F]\)\s\+r\([0-9a-fA-F]\).*$/99\2\1/e
+%s/^P3READ\s\+r\([0-9a-fA-F]\)\s\+r\([0-9a-fA-F]\).*$/9D\2\1/e
+%s/^P0READF\s\+r\([0-9a-fA-F]\).*$/93\10/e
+%s/^P1READF\s\+r\([0-9a-fA-F]\).*$/97\10/e
+%s/^P2READF\s\+r\([0-9a-fA-F]\).*$/9B\10/e
+%s/^P3READF\s\+r\([0-9a-fA-F]\).*$/9E\10/e
+
 %s/^\s*\n//e
 
 %j
