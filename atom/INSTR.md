@@ -115,3 +115,9 @@ If jumping with an immediate, the bits [0-7] are the immediate value: `10000XXXI
 
 If jumping with a register, the bits [0-3] identify the address register: `10001XXXXXXXAAAA`.
 
+### `1001` Peripherals
+Peripheral instructions are used to interact with peripheral devices. Bits [10-11] address a peripheral, supporting four
+devices. Bit 8 switches between writing (0) and reading (1). If reading, bit 9 switches between reading data (0) and
+flags (1). Bits [4-7] specify the register to write the data to, and bits [0-3] specify an address. The full format is:
+`1001PPFRTTTTAAAA`.
+

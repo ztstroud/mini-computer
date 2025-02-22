@@ -65,3 +65,10 @@ The addrCalc circuit computes an address by adding an 8 bit offset to a 16 bit b
 ## The Stack
 Memory addresses `0x8000` through `0xFFFF` are reserved for the stack. The stack saves values for procedure calls.
 
+## Peripherals
+Peripherals are external devices that Atom can communicate with. Atom supports four peripheral slots. Data can be sent
+to and requested from peripherals at addresses. In addition, you can read 16 flags from each peripheral, which the
+peripheral can use to tell you about its state.
+
+The full specification for peripherals is not defined yet.
+
