@@ -1,10 +1,54 @@
 SETHI r8 0x01 ; next block location
 ; r9 is the head
+; rA is the selected block
 
 ;MAIN_LOOP
+SETHI r0 0x70
+SETLO r0 0x00
+CALL 0x27;>READ_STR
+READ r0 0x0 r1
+SETHI r2 0x00
+SETLO r2 0x69
+
+CMP r1 r2
+JNE 0xFA;>MAIN_LOOP
+
+; (i) command
+; first, prepare a new block
+MOV r8 r2 ; r2 is new block location
+SUB r0 r0
+SETLO r0 0x30
+ADD r8 r0 ; move next block forward by 0x30
+WRITE r2 0x1 rA ; r2.prev = rA (new.prev = current)
+SETLO r0 0x00 ; zero out r0 again
+CMP rA r0
+JEQ 0x06;>BLOCK_READY
+
+READ rA 0x0 r7 ; r7 = rA.next (r7 is a copy of selected's next)
+WRITE r2 0x0 r7 ; r2.next = r7 (new.next = selected.next)
+WRITE rA 0x0 r2 ; rA.next = r2 (selected.next = new)
+
+CMP r7 r0
+JEQ 0x01;>BLOCK_READY
+
+WRITE  r7 0x1 r2 ; r7.prev = r2 (selected.next.prev = new)
+
+;BLOCK_READY
+MOV r2 rA ; (selected = new)
+
+CMP r9 r0
+JNE 0x01;>HEAD_ALREADY_SET
+
+MOV rA r9 ; set head to current if not set
+
+;HEAD_ALREADY_SET
+; rA is the current block, which we need to write into
+SETLO r0 0x02
+ADD r0 rA ; need to take into account the offset for data in block
 CALL 0x0D;>READ_STR
+
 CALL 0x01;>PRINT_STR
-JMP 0xFD;>MAIN_LOOP
+JMP 0xE1;>MAIN_LOOP
 
 ;=PRINT_STR
 ; print a null terminated string
@@ -30,16 +74,14 @@ JMP 0xF7;>PRINT_LOOP
 
 
 ;=READ_STR
-; reads a string from input, returns pointer
+; reads a string from input into a given location in r0
+; the memory location is returned in r0
 ; to a null terminated string in r0
 ; Assumes that P1 is I/O
 
-SUB r0 r0
-SUB r4 r4 ; str length
-
-SETHI r1 0x70 ; string buffer in memory
-SETLO r1 0x00
+MOV r0 r1
 MOV r1 r2 ; current char in buffer
+SUB r0 r0 ; will use r0 for comparison values, zero it out
 
 ;READ_LOOP
 P1READF r3 r3
