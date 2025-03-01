@@ -1326,6 +1326,11 @@
       </elementAttributes>
       <pos x="1480" y="900"/>
     </visualElement>
+    <visualElement>
+      <elementName>term.dig</elementName>
+      <elementAttributes/>
+      <pos x="1600" y="1180"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>

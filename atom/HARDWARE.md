@@ -76,3 +76,7 @@ signals, and a clock signal. They output data and flags.
 ### Storage
 Storage is additional memory that persists even without power.
 
+### Terminal
+A terminal allows you to read data from a keyboard and write data to a screen. Data from the keyboard is buffered in
+hardware, and it uses a single flag in bit 0 to tell you if data is available to read.
+
