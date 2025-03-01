@@ -5,14 +5,21 @@ SETHI r8 0x01 ; next block location
 ;MAIN_LOOP
 SETHI r0 0x70
 SETLO r0 0x00
-CALL 0x27;>READ_STR
+CALL 0x33;>READ_STR
 READ r0 0x0 r1
+
 SETHI r2 0x00
 SETLO r2 0x69
-
 CMP r1 r2
-JNE 0xFA;>MAIN_LOOP
+JEQ 0x04;>CMD_i
 
+SETLO r2 0x70
+CMP r1 r2
+JEQ 0x17;>CMD_p
+
+JMP 0xF4;>MAIN_LOOP
+
+;CMD_i
 ; (i) command
 ; first, prepare a new block
 MOV r8 r2 ; r2 is new block location
@@ -31,7 +38,7 @@ WRITE rA 0x0 r2 ; rA.next = r2 (selected.next = new)
 CMP r7 r0
 JEQ 0x01;>BLOCK_READY
 
-WRITE  r7 0x1 r2 ; r7.prev = r2 (selected.next.prev = new)
+WRITE r7 0x1 r2 ; r7.prev = r2 (selected.next.prev = new)
 
 ;BLOCK_READY
 MOV r2 rA ; (selected = new)
@@ -45,10 +52,25 @@ MOV rA r9 ; set head to current if not set
 ; rA is the current block, which we need to write into
 SETLO r0 0x02
 ADD r0 rA ; need to take into account the offset for data in block
-CALL 0x0D;>READ_STR
+CALL 0x15;>READ_STR
 
-CALL 0x01;>PRINT_STR
-JMP 0xE1;>MAIN_LOOP
+JMP 0xDE;>MAIN_LOOP
+
+;CMD_p
+MOV r9 rC
+
+;PRINT_LOOP
+SUB r0 r0
+CMP rC r0
+JEQ 0xDA;>MAIN_LOOP
+
+SETLO r0 0x02
+ADD r0 rC
+CALL 0x02;>PRINT_STR
+
+READ rC 0x0 rC
+JMP 0xF8;>PRINT_LOOP
+
 
 ;=PRINT_STR
 ; print a null terminated string
