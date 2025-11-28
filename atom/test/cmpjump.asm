@@ -86,30 +86,30 @@ SETLO r0 0x0E ; unsigned greater than or equal failed (equal)
 HALT
 
 CMP r3 r1
-JLU 0x02
+JLS 0x02
 SETLO r0 0x0F ; signed less than failed
 HALT
 
-JLEU 0x02
+JLES 0x02
 SETLO r0 0x10 ; signed less than or equal failed (less than)
 HALT
 
 CMP r3 r3
-JLEU 0x02
+JLES 0x02
 SETLO r0 0x11 ; signed less than or equal failed (equal)
 HALT
 
 CMP r1 r3
-JGU 0x02
+JGS 0x02
 SETLO r0 0x12 ; signed less than failed
 HALT
 
-JGEU 0x02
+JGES 0x02
 SETLO r0 0x13 ; signed less than or equal failed (greater than)
 HALT
 
 CMP r3 r3
-JGEU 0x02
+JGES 0x02
 SETLO r0 0x14 ; signed less than or equal failed (equal)
 HALT
 

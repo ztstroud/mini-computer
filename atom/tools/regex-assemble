@@ -20,10 +20,10 @@
 %s/^JLE\s\+0x\([0-9a-fA-F]\{2}\).*/45\1/e
 %s/^JG\s\+0x\([0-9a-fA-F]\{2}\).*/46\1/e
 %s/^JGE\s\+0x\([0-9a-fA-F]\{2}\).*/47\1/e
-%s/^JLU\s\+0x\([0-9a-fA-F]\{2}\).*/48\1/e
-%s/^JLEU\s\+0x\([0-9a-fA-F]\{2}\).*/49\1/e
-%s/^JGU\s\+0x\([0-9a-fA-F]\{2}\).*/4A\1/e
-%s/^JGEU\s\+0x\([0-9a-fA-F]\{2}\).*/4B\1/e
+%s/^JLS\s\+0x\([0-9a-fA-F]\{2}\).*/48\1/e
+%s/^JLES\s\+0x\([0-9a-fA-F]\{2}\).*/49\1/e
+%s/^JGS\s\+0x\([0-9a-fA-F]\{2}\).*/4A\1/e
+%s/^JGES\s\+0x\([0-9a-fA-F]\{2}\).*/4B\1/e
 %s/^JMP\s\+0x\([0-9a-fA-F]\{2}\).*/4F\1/e
 
 %s/^RJEQ\s\+r\([0-9a-fA-F]\).*/500\1/e
@@ -35,10 +35,10 @@
 %s/^RJLE\s\+r\([0-9a-fA-F]\).*/550\1/e
 %s/^RJG\s\+r\([0-9a-fA-F]\).*/560\1/e
 %s/^RJGE\s\+r\([0-9a-fA-F]\).*/570\1/e
-%s/^RJLU\s\+r\([0-9a-fA-F]\).*/580\1/e
-%s/^RJLEU\s\+r\([0-9a-fA-F]\).*/590\1/e
-%s/^RJGU\s\+r\([0-9a-fA-F]\).*/5A0\1/e
-%s/^RJGEU\s\+r\([0-9a-fA-F]\).*/5B0\1/e
+%s/^RJLS\s\+r\([0-9a-fA-F]\).*/580\1/e
+%s/^RJLES\s\+r\([0-9a-fA-F]\).*/590\1/e
+%s/^RJGS\s\+r\([0-9a-fA-F]\).*/5A0\1/e
+%s/^RJGES\s\+r\([0-9a-fA-F]\).*/5B0\1/e
 %s/^RJMP\s\+r\([0-9a-fA-F]\).*/5F0\1/e
 
 %s/^RRJEQ\s\+r\([0-9a-fA-F]\).*/501\1/e
@@ -50,10 +50,10 @@
 %s/^RRJLE\s\+r\([0-9a-fA-F]\).*/551\1/e
 %s/^RRJG\s\+r\([0-9a-fA-F]\).*/561\1/e
 %s/^RRJGE\s\+r\([0-9a-fA-F]\).*/571\1/e
-%s/^RRJLU\s\+r\([0-9a-fA-F]\).*/581\1/e
-%s/^RRJLEU\s\+r\([0-9a-fA-F]\).*/591\1/e
-%s/^RRJGU\s\+r\([0-9a-fA-F]\).*/5A1\1/e
-%s/^RRJGEU\s\+r\([0-9a-fA-F]\).*/5B1\1/e
+%s/^RRJLS\s\+r\([0-9a-fA-F]\).*/581\1/e
+%s/^RRJLES\s\+r\([0-9a-fA-F]\).*/591\1/e
+%s/^RRJGS\s\+r\([0-9a-fA-F]\).*/5A1\1/e
+%s/^RRJGES\s\+r\([0-9a-fA-F]\).*/5B1\1/e
 %s/^RRJMP\s\+r\([0-9a-fA-F]\).*/5F1\1/e
 
 %s/^READ\s\+r\([0-9a-fA-F]\)\s\+0x\([0-9a-fA-F]\)\s\+r\([0-9a-fA-F]\).*$/6\2\3\1/e
