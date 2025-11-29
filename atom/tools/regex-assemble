@@ -56,7 +56,10 @@
 %s/^RRJGES\s\+r\([0-9a-fA-F]\).*/5B1\1/e
 %s/^RRJMP\s\+r\([0-9a-fA-F]\).*/5F1\1/e
 
+" READ r0 0xA r1 ; read memory at r0 + 0xA into r1
 %s/^READ\s\+r\([0-9a-fA-F]\)\s\+0x\([0-9a-fA-F]\)\s\+r\([0-9a-fA-F]\).*$/6\2\3\1/e
+
+" WRITE r0 0xA r1 ; write r1 to memory at r0 + 0xA
 %s/^WRITE\s\+r\([0-9a-fA-F]\)\s\+0x\([0-9a-fA-F]\)\s\+r\([0-9a-fA-F]\).*$/7\2\3\1/e
 
 %s/^CALL\s\+0x\([0-9a-fA-F]\{2}\).*$/80\1/e
