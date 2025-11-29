@@ -1,10 +1,50 @@
 ; Text edit tool
 
+SETLO r9 0x0A
+
+;LOOP
 SETHI r0 0x01
+SETLO r0 0x00
+
+SETHI r1 0x00
 SETLO r1 0x30
 
-CALL &READ_STR
-HALT
+SETHI r8 &READ_STR
+SETLO r8 &READ_STR
+CALL r8
+
+P1WRITE r9 r9
+
+SETHI r8 &PRINT_STR
+SETLO r8 &PRINT_STR
+CALL r8
+
+P1WRITE r9 r9
+
+JMP 0xF3 ;&LOOP
+
+;=PRINT_STR
+; Print a null terminated string to the P1
+; terminal
+;
+; Params:
+; r0 - address of the string to write
+
+SETHI r1 0x00
+SETLO r1 0x01
+
+;LOOP
+READ r0 0x0 r2
+
+CMP r2 r1
+JL 0x03 ;&DONE
+
+P1WRITE r2 r2
+ADD r0 r1
+JMP 0xFA ;&LOOP
+
+;DONE
+RET
 
 ;=READ_STR
 ; Read a string of max length r1 from the P1
