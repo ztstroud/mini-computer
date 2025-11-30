@@ -115,6 +115,28 @@ WRITE r2 0x0 r3
 
 RET
 
+;ALLOC
+; Reserve space on the heap
+;
+; Params:
+; r0 - number of words to be reserved
+;
+; Returns:
+; r0 - address of allocated space
+
+SETHI r1 &HEAP_PTR
+SETLO r1 &HEAP_PTR
+
+READ r1 0x0 r2
+
+MOV r2 r3
+ADD r3 r0
+WRITE r1 0x0 r3
+
+MOV r2 r0
+
+RET
+
 ;INPUT_BUFFER
 0000
 0000
@@ -132,4 +154,9 @@ RET
 003E ;'>'
 0020 ;' '
 0000 ;null
+
+;HEAP_PTR
+&HEAP
+;HEAP
+0000
 
