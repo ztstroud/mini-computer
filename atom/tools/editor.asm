@@ -155,6 +155,53 @@ RET
 0020 ;' '
 0000 ;null
 
+; The line list is made out of nodes. Each
+; node starts with a pointer to the next and
+; the previous node. The head and tail nodes
+; are special, and only consist of two words.
+; Content nodes are 48 words total, with the
+; later 46 words being null terminated text.
+; This gives lines a max length of 45
+; characters.
+
+;LINE_LIST_INSERT
+; Insert a new entry into the line list after
+; the given node
+;
+; The given node MUST HAVE a next node
+;
+; Params:
+; r0 the address of the node to insert after
+;
+; Returns:
+; r0 - the address of the newly inserted node
+
+PUSH r0
+
+SETHI r0 0x00
+SETLO r0 0x30
+
+SETHI r7 &ALLOC
+SETLO r7 &ALLOC
+CALL r7
+
+POP r1
+READ r1 0x0 r2
+
+WRITE r0 0x0 r2
+WRITE r0 0x1 r1
+WRITE r1 0x0 r0
+WRITE r2 0x1 r0
+
+RET
+
+;LINE_LIST_HEAD
+&LINE_LIST_TAIL
+0000
+;LINE_LIST_TAIL
+0000
+&LINE_LIST_HEAD
+
 ;HEAP_PTR
 &HEAP
 ;HEAP
