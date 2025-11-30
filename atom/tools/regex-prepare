@@ -1,0 +1,8 @@
+" remove comments
+%s/\s*;\( .*$\|\s*\)$/
+
+" remove blank lines
+g/^$/d
+
+" move labels to end of following line
+g/^;=\?\w\+/norm ddpkJ
