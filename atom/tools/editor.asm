@@ -80,17 +80,13 @@ SETHI r1 0x00
 SETLO r1 0x02
 ADD r0 r1 ; data is offset by 2
 
-SETHI r4 &PRINT_STR
-SETLO r4 &PRINT_STR
+SETHI r4 &PRINTLN_STR
+SETLO r4 &PRINTLN_STR
 CALL r4
-
-SETHI r4 0x00
-SETLO r4 0x0A
-P1WRITE r4 r4
 
 READ r9 0x0 r9
 
-JMP 0xF2 ;&PRINT_LOOP
+JMP 0xF5 ;&PRINT_LOOP
 
 ;END
 JMP &MAIN_LOOP
@@ -116,6 +112,23 @@ ADD r0 r1
 JMP 0xFA ;&LOOP
 
 ;DONE
+RET
+
+;=PRINTLN_STR
+; Print a null terminated string and a
+; newline to the P1 terminal
+;
+; Params:
+; r0 - address of the string to write
+
+SETHI r1 &PRINT_STR
+SETLO r1 &PRINT_STR
+CALL r1
+
+SETHI r1 0x00
+SETLO r1 0x0A
+P1WRITE r1 r1
+
 RET
 
 ;=READ_STR
