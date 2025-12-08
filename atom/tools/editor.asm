@@ -71,9 +71,26 @@ READ r9 0x0 r9
 SETHI rA &LINE_LIST_TAIL
 SETLO rA &LINE_LIST_TAIL
 
+; current line number
+SETHI rB 0x00
+SETLO rB 0x01
+
+SETHI rC &PRINT_UDEC
+SETLO rC &PRINT_UDEC
+
 ;PRINT_LOOP
 CMP r9 rA
 JEQ &MAIN_LOOP
+
+MOV rB r0
+CALL rC
+
+SETHI r7 0x00
+SETLO r7 0x20
+P1WRITE r7 r7
+
+SETLO r7 0x01
+ADD rB r7
 
 MOV r9 r0
 SETHI r1 0x00
@@ -86,7 +103,7 @@ CALL r4
 
 READ r9 0x0 r9
 
-JMP 0xF5 ;&PRINT_LOOP
+JMP 0xEE ;&PRINT_LOOP
 
 ;END
 JMP &MAIN_LOOP
@@ -130,6 +147,96 @@ SETLO r1 0x0A
 P1WRITE r1 r1
 
 RET
+
+;=PRINT_UDEC
+; Print a number to the P1 terminal in
+; decimal
+;
+; Params:
+; r0 - unsigned number to convert
+
+; Preserve
+PUSH r9
+PUSH rA
+
+SETHI r9 &DIV_REMAINDER
+SETLO r9 &DIV_REMAINDER
+
+SETHI rA 0x00
+SETLO rA 0x30
+
+SETHI r1 0x27 ; 10000
+SETLO r1 0x10
+CALL r9
+
+ADD r1 rA
+P1WRITE r1 r1
+
+SETHI r1 0x03 ; 1000
+SETLO r1 0xE8
+CALL r9
+
+ADD r1 rA
+P1WRITE r1 r1
+
+SETHI r1 0x00 ; 100
+SETLO r1 0x64
+CALL r9
+
+ADD r1 rA
+P1WRITE r1 r1
+
+SETHI r1 0x00 ; 10
+SETLO r1 0x0A
+CALL r9
+
+ADD r1 rA
+P1WRITE r1 r1
+
+ADD r0 rA
+P1WRITE r0 r0
+
+; Restore
+POP rA
+POP r9
+
+RET
+
+;=DIV_REMAINDER
+; Computes the quotient and remainder of
+; dividing r0 by r1
+;
+; Implemented as a loop, so not recommended
+; for numbers where you expect a large
+; quotient
+;
+; Params:
+; r0 - unsigned numerator
+; r1 - unsigned denominator
+;
+; Returns:
+; r0 - remainder
+; r1 - quotient
+
+MOV r1 r2
+
+SUB r1 r1
+
+SETHI r7 0x00
+SETLO r7 0x01
+
+;LOOP
+CMP r0 r2
+JL 0x03 ;&DONE
+
+SUB r0 r2
+ADD r1 r7
+
+JMP 0xFB ;&LOOP
+
+;DONE
+RET
+
 
 ;=READ_STR
 ; Read a string of max length r1 from the P1
