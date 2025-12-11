@@ -54,7 +54,7 @@ Supported register operations are defined below:
 | `0001` | Subtract               | target - argument   | Subtract the argument from the target |
 | `0010` | Move                   | argument            | Move the argument to the target |
 | `0011` | Compare                | target - argument   | Subtract the argument from the target without modifying it |
-| `0100` | Reserved               | Reserved            | Reserved |
+| `0100` | Multiply               | target * argument   | Multiply the targe by the argument |
 | `0101` | Reserved               | Reserved            | Reserved |
 | `0110` | Reserved               | Reserved            | Reserved |
 | `0111` | Reserved               | Reserved            | Reserved |

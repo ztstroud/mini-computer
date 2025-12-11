@@ -20,6 +20,12 @@ The ALU always performs computations on the target and argument registers.
 When the output of the ALU is written to the data bus, the flags are saved in the flag register. The value of the flags
 is always visible in `Fl`.
 
+#### Multiply (`0b0100`) Flags
+
+Only the carry flag is well defined. It is high iff any bit is set in bits [16-31].
+
+Do not use any other flags.
+
 ### Instruction Register
 The instruction register stores the instruction to execute. It stores whatever is being pulled out of RAM.
 

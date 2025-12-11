@@ -3,5 +3,7 @@ SETLO r1 0x02
 ADD r0 r0
 MOV r0 r2
 SUB r2 r1
+MOV r1 r3
+MUL r3 r2
 HALT
 

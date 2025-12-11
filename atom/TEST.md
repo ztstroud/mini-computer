@@ -32,6 +32,7 @@ This test checks that adding, subtracting, and moving values works correctly.
 |       r0 | 0x000A |
 |       r1 | 0x0002 |
 |       r2 | 0x0008 |
+|       r3 | 0x0010 |
 
 ### Compare and jump (cmpjump.bin)
 Tests that compare and jump operations work. All jump types are exercised.
