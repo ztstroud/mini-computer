@@ -1,0 +1,7 @@
+SETLO r0 0x05
+SETLO r1 0x02
+ADD r0 r0
+MOV r0 r2
+SUB r2 r1
+HALT
+
