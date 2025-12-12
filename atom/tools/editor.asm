@@ -62,7 +62,7 @@ JMP &MAIN_LOOP
 SETHI r4 0x00 ;'p'
 SETLO r4 0x70
 CMP r3 r4
-JNE &END
+JNE &NUM
 
 SETHI r9 &LINE_LIST_HEAD
 SETLO r9 &LINE_LIST_HEAD
@@ -109,6 +109,44 @@ CALL r4
 READ r9 0x0 r9
 
 JMP 0xEB ;&PRINT_LOOP
+
+;NUM
+SETHI r4 0x00
+SETLO r4 0x30 ;'0'
+CMP r3 r4
+JL &END
+SETLO r4 0x39 ;'9'
+CMP r3 r4
+JG &END
+
+; r0 is still the input buffer address
+SETHI r4 &PARSE_UDEC
+SETLO r4 &PARSE_UDEC
+CALL r4
+
+SETHI r8 &LINE_LIST_HEAD
+SETLO r8 &LINE_LIST_HEAD
+
+SETHI r9 &LINE_LIST_TAIL
+SETLO r9 &LINE_LIST_TAIL
+
+SETHI r2 0x00
+SETLO r2 0x01
+
+;LOOP
+MOV r0 r0
+JEQ &MAIN_LOOP
+
+READ r8 0x0 r5
+
+; Don't advance past the end
+CMP r5 r9
+JEQ &MAIN_LOOP
+
+MOV r5 r8
+SUB r0 r2
+
+JMP 0xF8 ;&LOOP
 
 ;END
 JMP &MAIN_LOOP
@@ -242,6 +280,53 @@ JMP 0xFB ;&LOOP
 ;DONE
 RET
 
+;=PARSE_UDEC
+; Convert an unsigned decimal in a string to
+; a value in a register
+;
+; Conversion is abandoned in its current
+; state when a non-digit character is
+; encountered.
+;
+; Params:
+; r0 - Address of null terminated string to
+;      convert
+;
+; Returns:
+; r0 - The converted value
+
+SETHI r4 0x00
+SETLO r4 0x0A
+
+SETHI r5 0x00
+SETLO r5 0x30
+
+SETHI r6 0x00
+SETLO r6 0x39
+
+SETHI r7 0x00
+SETLO r7 0x01
+
+SUB r1 r1
+
+;LOOP
+READ r0 0x0 r2
+CMP r2 r5
+JL 0x07 ;&DONE
+CMP r2 r6
+JG 0x05 ;&DONE
+
+SUB r2 r5
+MUL r1 r4
+ADD r1 r2
+
+ADD r0 r7
+JMP 0xF6 ;&LOOP
+
+;DONE
+MOV r1 r0
+
+RET
 
 ;=READ_STR
 ; Read a string of max length r1 from the P1
