@@ -114,10 +114,10 @@ JMP 0xEB ;&PRINT_LOOP
 SETHI r4 0x00
 SETLO r4 0x30 ;'0'
 CMP r3 r4
-JL &END
+JL &DELETE
 SETLO r4 0x39 ;'9'
 CMP r3 r4
-JG &END
+JG &DELETE
 
 ; r0 is still the input buffer address
 SETHI r4 &PARSE_UDEC
@@ -147,6 +147,27 @@ MOV r5 r8
 SUB r0 r2
 
 JMP 0xF8 ;&LOOP
+
+;DELETE
+SETHI r4 0x00 ;'d'
+SETLO r4 0x64
+CMP r3 r4
+JNE &END
+
+; Do nothing if currently pointing at HEAD
+SETHI r1 &LINE_LIST_HEAD
+SETLO r1 &LINE_LIST_HEAD
+CMP r8 r1
+JEQ &MAIN_LOOP
+
+; Prepare cursor for delete call, and set it
+; to the previous node
+MOV r8 r0
+READ r8 0x1 r8
+
+SETHI r1 &LINE_LIST_REMOVE
+SETLO r1 &LINE_LIST_REMOVE
+CALL r1
 
 ;END
 JMP &MAIN_LOOP
@@ -469,6 +490,25 @@ WRITE r0 0x0 r2
 WRITE r0 0x1 r1
 WRITE r1 0x0 r0
 WRITE r2 0x1 r0
+
+RET
+
+;LINE_LIST_REMOVE
+;
+; Do not call remove on the head or tail,
+; everything will explode
+;
+; Params:
+; r0 - node to remove
+
+READ r0 0x0 r1
+READ r0 0x1 r2
+
+WRITE r1 0x1 r2
+WRITE r2 0x0 r1
+
+; TODO: save and reuse deleted nodes to save
+; heap space
 
 RET
 
