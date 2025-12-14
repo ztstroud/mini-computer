@@ -192,7 +192,7 @@ JNE 0x06 ;&READ
 SETHI r4 0x00 ;'r'
 SETLO r4 0x72
 CMP r3 r4
-JNE 0x05 ;&END
+JNE 0x09 ;&END
 
     SETHI r0 &LINE_LIST_CLEAR
     SETLO r0 &LINE_LIST_CLEAR
@@ -200,6 +200,12 @@ JNE 0x05 ;&END
 
     SETHI r8 &LINE_LIST_HEAD
     SETLO r8 &LINE_LIST_HEAD
+
+    MOV r8 r0
+
+    SETHI r1 &READ_P0
+    SETLO r1 &READ_P0
+    CALL r1
 
 ;END
 JMP &MAIN_LOOP
@@ -252,6 +258,57 @@ JMP &MAIN_LOOP
     ; write null terminator
     SUB r0 r0
     P0WRITE r1 r0
+
+RET
+
+;=READ_P0
+; Read lines from P0 into the editor
+;
+; Params:
+; r0 - address of the node to add after
+
+    PUSH r8
+
+    SUB r8 r8 ; P0 address
+
+    ;LINE_LOOP
+    P0READ r8 r1
+    MOV r1 r1
+    JEQ &RETURN
+
+    SETHI r7 &LINE_LIST_INSERT
+    SETLO r7 &LINE_LIST_INSERT
+    CALL r7
+
+    SETHI r7 0x00
+    SETLO r7 0x02
+
+    MOV r0 r1
+    ADD r1 r7
+
+    ;READ_LOOP
+    P0READ r8 r2
+    SETLO r7 0x0A
+    CMP r2 r7
+    JEQ &DONE
+
+    WRITE r1 0x0 r2
+
+    SETLO r7 0x01
+    ADD r1 r7
+    ADD r8 r7
+
+    JMP &READ_LOOP
+
+    ;DONE
+    ; r8 was \n, move to next
+    SETLO r7 0x01
+    ADD r8 r7
+
+    JMP &LINE_LOOP
+
+    ;RETURN
+    POP r8
 
 RET
 
