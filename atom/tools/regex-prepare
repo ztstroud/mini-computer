@@ -1,3 +1,6 @@
+" remove prefix whitespace
+%s/^\s\+//
+
 " remove comments
 %s/\s*;\( .*$\|\s*\)$/
 
