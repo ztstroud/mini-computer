@@ -152,7 +152,7 @@ JMP 0xF8 ;&LOOP
 SETHI r4 0x00 ;'d'
 SETLO r4 0x64
 CMP r3 r4
-JNE 0x09 ;&END
+JNE 0x09 ;&WRITE
 
 ; Do nothing if currently pointing at HEAD
 SETHI r1 &LINE_LIST_HEAD
@@ -169,8 +169,74 @@ SETHI r1 &LINE_LIST_REMOVE
 SETLO r1 &LINE_LIST_REMOVE
 CALL r1
 
+;WRITE
+SETHI r4 0x00 ;'w'
+SETLO r4 0x77
+CMP r3 r4
+JNE 0x06 ;&END
+
+    ; Get list cursor on first real node
+    SETHI r0 &LINE_LIST_HEAD
+    SETLO r0 &LINE_LIST_HEAD
+    READ r0 0x0 r0
+
+    SETHI r1 &WRITE
+    SETLO r1 &WRITE
+    CALL r1
+
 ;END
 JMP &MAIN_LOOP
+
+;=WRITE
+; Params:
+; r0 - address of node to start from
+
+    ; Have write cursor
+    SUB r1 r1
+
+    SETHI r6 &LINE_LIST_TAIL
+    SETLO r6 &LINE_LIST_TAIL
+
+    ; Constant 1
+    SETHI r7 0x00
+    SETLO r7 0x01
+
+    ;LOOP
+    ; while not null
+    CMP r0 r6
+    JEQ 0x10 ;&DONE
+
+    ; Get string start
+    MOV r0 r2
+    ADD r2 r7
+    ADD r2 r7
+
+    ;STRLOOP
+    READ r2 0x0 r3
+    MOV r3 r3
+    JEQ 0x04 ;&ENDLINE
+    P0WRITE r1 r3
+    ADD r1 r7
+    ADD r2 r7
+    JMP 0xF9 ;&STRLOOP
+
+    ;ENDLINE
+    SETHI r2 0x00
+    SETLO r2 0x0A
+    P0WRITE r1 r2
+    ADD r1 r7
+
+    ; advance cursor
+    READ r0 0x0 r0
+
+    JMP 0xEE ;&LOOP
+
+    ;DONE
+    ; write null terminator
+    SUB r0 r0
+    P0WRITE r1 r0
+
+RET
 
 ;=PRINT_STR
 ; Print a null terminated string to the P1
