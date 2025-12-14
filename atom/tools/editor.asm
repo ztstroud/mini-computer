@@ -180,8 +180,8 @@ JNE 0x06 ;&READ
     SETLO r0 &LINE_LIST_HEAD
     READ r0 0x0 r0
 
-    SETHI r1 &WRITE
-    SETLO r1 &WRITE
+    SETHI r1 &WRITE_P0
+    SETLO r1 &WRITE_P0
     CALL r1
 
 ;READ
@@ -200,7 +200,7 @@ JNE 0x05 ;&END
 ;END
 JMP &MAIN_LOOP
 
-;=WRITE
+;=WRITE_P0
 ; Params:
 ; r0 - address of node to start from
 
