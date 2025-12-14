@@ -34,29 +34,29 @@ SETLO r4 0x69
 CMP r3 r4
 JNE 0x11 ;&PRINT
 
-MOV r8 r0
-SETHI r1 &LINE_LIST_INSERT
-SETLO r1 &LINE_LIST_INSERT
-CALL r1
+    MOV r8 r0
+    SETHI r1 &LINE_LIST_INSERT
+    SETLO r1 &LINE_LIST_INSERT
+    CALL r1
 
-MOV r0 r8
+    MOV r0 r8
 
-SETHI r1 0x00
-SETLO r1 0x02
-ADD r0 r1 ; data is offset by 2, so pass that
+    SETHI r1 0x00
+    SETLO r1 0x02
+    ADD r0 r1 ; data is offset by 2, so pass that
 
-SETHI r1 0x00
-SETLO r1 0x2D
+    SETHI r1 0x00
+    SETLO r1 0x2D
 
-SETHI r2 &READ_STR
-SETLO r2 &READ_STR
-CALL r2
+    SETHI r2 &READ_STR
+    SETLO r2 &READ_STR
+    CALL r2
 
-SETHI r1 0x00
-SETLO r1 0x0A
-P1WRITE r1 r1
+    SETHI r1 0x00
+    SETLO r1 0x0A
+    P1WRITE r1 r1
 
-JMP &MAIN_LOOP
+    JMP &MAIN_LOOP
 
 ;PRINT
 SETHI r4 0x00 ;'p'
@@ -64,51 +64,51 @@ SETLO r4 0x70
 CMP r3 r4
 JNE 0x1E ;&NUM
 
-SETHI r9 &LINE_LIST_HEAD
-SETLO r9 &LINE_LIST_HEAD
-READ r9 0x0 r9
+    SETHI r9 &LINE_LIST_HEAD
+    SETLO r9 &LINE_LIST_HEAD
+    READ r9 0x0 r9
 
-SETHI rA &LINE_LIST_TAIL
-SETLO rA &LINE_LIST_TAIL
+    SETHI rA &LINE_LIST_TAIL
+    SETLO rA &LINE_LIST_TAIL
 
-; current line number
-SETHI rB 0x00
-SETLO rB 0x01
+    ; current line number
+    SETHI rB 0x00
+    SETLO rB 0x01
 
-SETHI rC &PRINT_UDEC
-SETLO rC &PRINT_UDEC
+    SETHI rC &PRINT_UDEC
+    SETLO rC &PRINT_UDEC
 
-;PRINT_LOOP
-CMP r9 rA
-JEQ &MAIN_LOOP
+    ;PRINT_LOOP
+    CMP r9 rA
+    JEQ &MAIN_LOOP
 
-MOV rB r0
-CALL rC
+    MOV rB r0
+    CALL rC
 
-SETHI r7 0x00
-SETLO r7 0x2A ;'*'
-CMP r9 r8
-JEQ 0x01 ;&PRINT_SPACER
-SETLO r7 0x20 ;' '
+    SETHI r7 0x00
+    SETLO r7 0x2A ;'*'
+    CMP r9 r8
+    JEQ 0x01 ;&PRINT_SPACER
+    SETLO r7 0x20 ;' '
 
-;PRINT_SPACER
-P1WRITE r7 r7
+    ;PRINT_SPACER
+    P1WRITE r7 r7
 
-SETLO r7 0x01
-ADD rB r7
+    SETLO r7 0x01
+    ADD rB r7
 
-MOV r9 r0
-SETHI r1 0x00
-SETLO r1 0x02
-ADD r0 r1 ; data is offset by 2
+    MOV r9 r0
+    SETHI r1 0x00
+    SETLO r1 0x02
+    ADD r0 r1 ; data is offset by 2
 
-SETHI r4 &PRINTLN_STR
-SETLO r4 &PRINTLN_STR
-CALL r4
+    SETHI r4 &PRINTLN_STR
+    SETLO r4 &PRINTLN_STR
+    CALL r4
 
-READ r9 0x0 r9
+    READ r9 0x0 r9
 
-JMP 0xEB ;&PRINT_LOOP
+    JMP 0xEB ;&PRINT_LOOP
 
 ;NUM
 SETHI r4 0x00
@@ -119,34 +119,34 @@ SETLO r4 0x39 ;'9'
 CMP r3 r4
 JG 0x11 ;&DELETE
 
-; r0 is still the input buffer address
-SETHI r4 &PARSE_UDEC
-SETLO r4 &PARSE_UDEC
-CALL r4
+    ; r0 is still the input buffer address
+    SETHI r4 &PARSE_UDEC
+    SETLO r4 &PARSE_UDEC
+    CALL r4
 
-SETHI r8 &LINE_LIST_HEAD
-SETLO r8 &LINE_LIST_HEAD
+    SETHI r8 &LINE_LIST_HEAD
+    SETLO r8 &LINE_LIST_HEAD
 
-SETHI r9 &LINE_LIST_TAIL
-SETLO r9 &LINE_LIST_TAIL
+    SETHI r9 &LINE_LIST_TAIL
+    SETLO r9 &LINE_LIST_TAIL
 
-SETHI r2 0x00
-SETLO r2 0x01
+    SETHI r2 0x00
+    SETLO r2 0x01
 
-;LOOP
-MOV r0 r0
-JEQ &MAIN_LOOP
+    ;LOOP
+    MOV r0 r0
+    JEQ &MAIN_LOOP
 
-READ r8 0x0 r5
+    READ r8 0x0 r5
 
-; Don't advance past the end
-CMP r5 r9
-JEQ &MAIN_LOOP
+    ; Don't advance past the end
+    CMP r5 r9
+    JEQ &MAIN_LOOP
 
-MOV r5 r8
-SUB r0 r2
+    MOV r5 r8
+    SUB r0 r2
 
-JMP 0xF8 ;&LOOP
+    JMP 0xF8 ;&LOOP
 
 ;DELETE
 SETHI r4 0x00 ;'d'
@@ -154,20 +154,20 @@ SETLO r4 0x64
 CMP r3 r4
 JNE 0x09 ;&WRITE
 
-; Do nothing if currently pointing at HEAD
-SETHI r1 &LINE_LIST_HEAD
-SETLO r1 &LINE_LIST_HEAD
-CMP r8 r1
-JEQ &MAIN_LOOP
+    ; Do nothing if currently pointing at HEAD
+    SETHI r1 &LINE_LIST_HEAD
+    SETLO r1 &LINE_LIST_HEAD
+    CMP r8 r1
+    JEQ &MAIN_LOOP
 
-; Prepare cursor for delete call, and set it
-; to the previous node
-MOV r8 r0
-READ r8 0x1 r8
+    ; Prepare cursor for delete call, and set it
+    ; to the previous node
+    MOV r8 r0
+    READ r8 0x1 r8
 
-SETHI r1 &LINE_LIST_REMOVE
-SETLO r1 &LINE_LIST_REMOVE
-CALL r1
+    SETHI r1 &LINE_LIST_REMOVE
+    SETLO r1 &LINE_LIST_REMOVE
+    CALL r1
 
 ;WRITE
 SETHI r4 0x00 ;'w'
