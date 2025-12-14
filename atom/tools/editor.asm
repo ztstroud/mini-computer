@@ -173,7 +173,7 @@ CALL r1
 SETHI r4 0x00 ;'w'
 SETLO r4 0x77
 CMP r3 r4
-JNE 0x06 ;&END
+JNE 0x06 ;&READ
 
     ; Get list cursor on first real node
     SETHI r0 &LINE_LIST_HEAD
@@ -183,6 +183,19 @@ JNE 0x06 ;&END
     SETHI r1 &WRITE
     SETLO r1 &WRITE
     CALL r1
+
+;READ
+SETHI r4 0x00 ;'r'
+SETLO r4 0x72
+CMP r3 r4
+JNE 0x05 ;&END
+
+    SETHI r0 &LINE_LIST_CLEAR
+    SETLO r0 &LINE_LIST_CLEAR
+    CALL r0
+
+    SETHI r8 &LINE_LIST_HEAD
+    SETLO r8 &LINE_LIST_HEAD
 
 ;END
 JMP &MAIN_LOOP
@@ -575,6 +588,41 @@ WRITE r2 0x0 r1
 
 ; TODO: save and reuse deleted nodes to save
 ; heap space
+
+RET
+
+;=LINE_LIST_CLEAR
+; Clear all entries from the line list
+
+    PUSH r8
+    PUSH r9
+    PUSH rA
+
+    SETHI r8 &LINE_LIST_HEAD
+    SETLO r8 &LINE_LIST_HEAD
+    READ r8 0x0 r8
+
+    SETHI r9 &LINE_LIST_TAIL
+    SETLO r9 &LINE_LIST_TAIL
+
+    SETHI rA &LINE_LIST_REMOVE
+    SETLO rA &LINE_LIST_REMOVE
+
+    ;LOOP
+    CMP r8 r9
+    JEQ 0x04 ;&DONE
+
+    MOV r8 r0
+    READ r8 0x0 r8
+
+    CALL rA
+
+    JMP 0xFA ;&LOOP
+
+    ;DONE
+    POP rA
+    POP r9
+    POP r8
 
 RET
 
