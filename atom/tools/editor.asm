@@ -492,7 +492,7 @@ WRITE r2 0x0 r3
 
 RET
 
-;ALLOC
+;=ALLOC
 ; Reserve space on the heap
 ;
 ; Params:
@@ -541,7 +541,7 @@ RET
 ; This gives lines a max length of 45
 ; characters.
 
-;LINE_LIST_INSERT
+;=LINE_LIST_INSERT
 ; Insert a new entry into the line list after
 ; the given node
 ;
@@ -572,7 +572,7 @@ WRITE r2 0x1 r0
 
 RET
 
-;LINE_LIST_REMOVE
+;=LINE_LIST_REMOVE
 ;
 ; Do not call remove on the head or tail,
 ; everything will explode
