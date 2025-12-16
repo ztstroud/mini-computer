@@ -152,7 +152,7 @@ JG 0x11 ;&DELETE
 SETHI r4 0x00 ;'d'
 SETLO r4 0x64
 CMP r3 r4
-JNE 0x09 ;&WRITE
+JNE 0x0A ;&WRITE
 
     ; Do nothing if currently pointing at HEAD
     SETHI r1 &LINE_LIST_HEAD
@@ -175,7 +175,7 @@ JNE 0x09 ;&WRITE
 SETHI r4 0x00 ;'w'
 SETLO r4 0x77
 CMP r3 r4
-JNE 0x06 ;&READ
+JNE 0x07 ;&READ
 
     ; Get list cursor on first real node
     SETHI r0 &LINE_LIST_HEAD
