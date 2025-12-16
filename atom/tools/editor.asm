@@ -286,6 +286,8 @@ RET
     MOV r0 r1
     ADD r1 r7
 
+    ; r1 points to the next char address
+
     ;READ_LOOP
     P0READ r8 r2
     SETLO r7 0x0A
@@ -304,6 +306,10 @@ RET
     ; r8 was \n, move to next
     SETLO r7 0x01
     ADD r8 r7
+
+    ; null terminate the line
+    SETLO r7 0x00
+    WRITE r1 0x0 r7
 
     JMP &LINE_LOOP
 
