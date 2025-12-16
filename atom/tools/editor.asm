@@ -616,6 +616,22 @@ RET
 
 PUSH r0
 
+SETHI r6 &LINE_LIST_FREE
+SETLO r6 &LINE_LIST_FREE
+READ r6 0x0 r0
+
+MOV r0 r0
+JEQ 0x03 ;&ALLOC_NEW
+
+; Use node from free list
+
+; Remove node from free list
+READ r0 0x0 r1
+WRITE r6 0x0 r1
+
+JMP 0x05 ;&INSERT_NEW
+
+;ALLOC_NEW
 SETHI r0 0x00
 SETLO r0 0x30
 
@@ -623,6 +639,7 @@ SETHI r7 &ALLOC
 SETLO r7 &ALLOC
 CALL r7
 
+;INSERT_NEW
 POP r1
 READ r1 0x0 r2
 
@@ -641,14 +658,21 @@ RET
 ; Params:
 ; r0 - node to remove
 
+; Get next/previous
 READ r0 0x0 r1
 READ r0 0x1 r2
 
+; Point next/previous at each other
 WRITE r1 0x1 r2
 WRITE r2 0x0 r1
 
-; TODO: save and reuse deleted nodes to save
-; heap space
+SETHI r3 &LINE_LIST_FREE
+SETLO r3 &LINE_LIST_FREE
+
+; Add to free list
+READ r3 0x0 r4
+WRITE r0 0x0 r4
+WRITE r3 0x0 r0
 
 RET
 
@@ -693,6 +717,8 @@ RET
 ;LINE_LIST_TAIL
 0000
 &LINE_LIST_HEAD
+;LINE_LIST_FREE
+0000
 
 ;HEAP_PTR
 &HEAP
