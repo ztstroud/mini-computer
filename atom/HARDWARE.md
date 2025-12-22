@@ -50,6 +50,7 @@ The jump decider contains the logic that determine if we should jump based upon 
 | 0010      | Overflow                       | Jump if the last operation resulted in signed overflow |
 | 0011      | Negative                       | Jump if the last operation resulted in a negative signed value |
 | 0100      | Unsigned less than             | Jump if the the target was less than the argument in the last operation (only well defined for subtraction) |
+| 0100      | Carry                          | Jump if the last operation resulted in a carry |
 | 0101      | Unsigned less than or equal    | Jump if the the target was less than or equal to the argument in the last operaiton (only well defined for subtraction) |
 | 0110      | Unsigned greater than          | Jump if the the target was greater than the argument in the last operation (only well defined for subtraction) |
 | 0111      | Unsigned greater than or equal | Jump if the the target was greater than or equal to the argument in the last operation (only well defined for subtraction) |
