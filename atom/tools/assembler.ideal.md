@@ -247,3 +247,22 @@ The assembler reports simple information about errors, including the line
 number. It attempts to compile as much as possible so that you get as many
 errors as possible per run.
 
+## Architecture
+
+The assembler makes two passes over the data. The first parses non-program atoms
+and identifies the text of atoms that will be processed in the second pass.
+
+The atoms that will be processed into data are referenced from a large list.
+During the first pass, this list is populated with data. Instructions take one
+word each, as do raw values, label addresses, and constants. Strings and zero
+bytes are also placed in the list, but can take up many bytes. This means that
+the position in the list _does not indicate the instruction address_.
+
+During the first pass, the addresses of labels are computed. As the length of
+the list doesn't indicate the instruction address, the next address must be
+maintained separately. The constant values are also collected.
+
+During the second pass, the list is walked and all data resolved to individual
+words. At this point, all label addresses and constants are known, and so can be
+resolved.
+
