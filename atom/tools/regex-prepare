@@ -2,7 +2,7 @@
 %s/^\s\+//
 
 " remove comments
-%s/\s*;\( .*\|\s*\)$/
+%s/\s*;\([ $].*\|\s*\)$/
 
 " remove blank lines
 g/^$/d
