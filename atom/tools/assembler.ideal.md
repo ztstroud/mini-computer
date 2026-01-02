@@ -127,6 +127,8 @@ RET
 
 PUSH r0 ; Push r0's value onto the stack
 POP r0 ; Pop the top value from the stack and write it to r0
+
+SP r0 ; Write the value of the SP to r0
 ```
 
 ### Reading and writing

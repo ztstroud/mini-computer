@@ -144,6 +144,16 @@ Tests that values that have been pushed to the stack can be recovered by popping
 |       r0 | 0xDEAD |
 |       r1 | 0xBEEF |
 
+### Fetching Stack Pointer (sp.bin)
+Tests that the value of the stack pointer can be read into a register.
+
+#### Expectation
+| Register | Value |
+| -------- | ----- |
+|       r0 | 0x8000 |
+|       r1 | 0x8004 |
+|       r2 | 0x8002 |
+
 ### Peripheral I/O (io.bin)
 Tests that values can be sent to and from a peripheral device.
 

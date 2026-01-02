@@ -1,0 +1,10 @@
+SP r0
+PUSH r7
+PUSH r7
+PUSH r7
+PUSH r7
+SP r1
+POP r7
+POP r7
+SP r2
+HALT
