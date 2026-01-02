@@ -36,6 +36,8 @@ register used in the operation, and `XXXX` is the operation type.
 | --------- | ----------- |
 | `0000` | Push the value of the register `TTTT` onto the stack |
 | `0001` | Pop a value from the stack into register `TTTT` |
+| `0010` | Reserve the value of the register `TTTT` many words on the stack |
+| `0011` | Release the value of the register `TTTT` many words from the stack |
 | `0100` | Save the stack pointer to register `TTTT` |
 
 ### `0001` Register Operation

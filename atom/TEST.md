@@ -154,6 +154,15 @@ Tests that the value of the stack pointer can be read into a register.
 |       r1 | 0x8004 |
 |       r2 | 0x8002 |
 
+### Reserving Stack Space (stackreserve.bin)
+Tests that large space can be reserved on the stack with register values.
+
+#### Expectation
+| Register | Value |
+| -------- | ----- |
+|       r0 | 0x8028 |
+|       r1 | 0x8015 |
+
 ### Peripheral I/O (io.bin)
 Tests that values can be sent to and from a peripheral device.
 

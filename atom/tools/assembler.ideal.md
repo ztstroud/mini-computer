@@ -128,6 +128,9 @@ RET
 PUSH r0 ; Push r0's value onto the stack
 POP r0 ; Pop the top value from the stack and write it to r0
 
+RSRV r0 ; reserve r0 words on the stack
+RLS r0 ; release r0 words from the stack
+
 SP r0 ; Write the value of the SP to r0
 ```
 

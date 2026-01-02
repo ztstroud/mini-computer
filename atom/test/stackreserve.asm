@@ -1,0 +1,7 @@
+SETLO r7 0x28
+RSRV r7
+SP r0
+SETLO r7 0x13
+RLS r7
+SP r1
+HALT
