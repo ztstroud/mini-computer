@@ -134,6 +134,10 @@ RLS r0 ; release r0 words from the stack
 SP r0 ; Write the value of the SP to r0
 ```
 
+The `<RSRV_RLS_ARG>` can take the following forms:
+- `r0`: reserve/release r0 words on the stack
+- `<VAL:8>`: reserve/release `VAL` words on the stack
+
 ### Reading and writing
 
 ```asm

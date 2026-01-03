@@ -163,6 +163,15 @@ Tests that large space can be reserved on the stack with register values.
 |       r0 | 0x8028 |
 |       r1 | 0x8015 |
 
+### Reserving Stack Space with Immediate (stackreserveimm.bin)
+Tests that large space can be reserved on the stack with immediate values.
+
+#### Expectation
+| Register | Value |
+| -------- | ----- |
+|       r0 | 0x804C |
+|       r1 | 0x802B |
+
 ### Peripheral I/O (io.bin)
 Tests that values can be sent to and from a peripheral device.
 
