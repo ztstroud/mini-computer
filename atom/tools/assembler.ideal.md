@@ -8,6 +8,7 @@ by their initial character:
 - `[0-9-]`: raw data written as a number
 - `&`: a label address
 - `"`: string data
+- `'`: character data
 - `#`: insert a number zero bytes
 - `$`: a constant
 
@@ -31,6 +32,16 @@ Literal values can be written in various formats:
 - Decimal: `-?[0-9]+`
 - Hexadecimal: `0x[0-9A-F]+`
 - Binary: `0b[01]+`
+
+### Characters
+
+Characters are prefixed with a single quote `'`. The following character is
+written as a single word. The following:
+
+```asm
+'A ; 0x0041
+'Z ; 0x005A
+```
 
 ### Constants
 
