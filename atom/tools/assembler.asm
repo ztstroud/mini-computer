@@ -13,14 +13,94 @@ SETHI r7 &LABEL_LIST
 SETLO r7 &LABEL_LIST
 WRITE r7 0x0 r0
 
-SETHI r7 &LIST_ADD
-SETLO r7 &LIST_ADD
+MOV r0 r8
+SETHI rA 0x00
+
+SETHI r9 &LIST_ADD
+SETLO r9 &LIST_ADD
+
+CALL r9
+SETLO rA 0xF0
+WRITE r0 0x0 rA
+SETLO rA 0x08
+WRITE r0 0x1 rA
+SETLO rA 0xCB
+WRITE r0 0x2 rA
+
+MOV r8 r0
+CALL r9
+SETLO rA 0x11
+WRITE r0 0x0 rA
+SETLO rA 0x22
+WRITE r0 0x1 rA
+SETLO rA 0x33
+WRITE r0 0x2 rA
+
+MOV r8 r0
+CALL r9
+SETLO rA 0xAA
+WRITE r0 0x0 rA
+SETLO rA 0xBB
+WRITE r0 0x1 rA
+SETLO rA 0xCC
+WRITE r0 0x2 rA
+
+SP r1
+RSRV 0x02
+
+SETHI r7 0x00
+SETLO r7 0x01
+WRITE r1 0x0 r7
+SETLO r7 0x22
+WRITE r1 0x1 r7
+
+MOV r8 r0
+SETHI r2 &CB_ENTRY_IS
+SETLO r2 &CB_ENTRY_IS
+
+SETHI r7 &LIST_FIND_CTX
+SETLO r7 &LIST_FIND_CTX
 CALL r7
+
+RLS 0x02
 
 HALT
 
 ;LABEL_LIST
 0000
+
+;=CB_ENTRY_IS
+;
+; Check if an member of an entry identified
+; by an offset matches a value.
+;
+; The context must be two words. The 0th
+; word is the offset to check, the 1th is the
+; value to compare to.
+;
+; Params:
+; r0 - entry address
+; r1 - context address
+;
+; Returns:
+; r0 - 1 iff entry matches, 0 otherwise
+
+    READ r1 0x0 r2
+    ADD r0 r2
+
+    READ r0 0x0 r2
+    READ r1 0x1 r3
+
+    SUB r0 r0
+
+    CMP r2 r3
+    JNE 0x01 ;&CB_ENTRY_IS_DONE
+
+    SETLO r0 0x01
+
+    ;CB_ENTRY_IS_DONE
+
+RET
 
 ;$LIST_R_FIRST=0x0
 ;$LIST_R_LAST=0x1
@@ -110,6 +190,92 @@ RET
 
     ADD r0 r2
     ADD r0 r1
+
+RET
+
+;=LIST_FIND_CTX
+;
+; Find a value in a list using a callback that take an extra contextual
+; argument.
+;
+; The callback is given the address of an entry in r0 and the contextual
+; argument as r1. It must return a value in r0, 0x0000 to indicate no match or
+; any other value to indicate a match.
+;
+; The contextual argument cannot be modified by the callback. If you need to
+; modify data, you can pass a pointer to space you have reserved.
+;
+; Params:
+; r0 - address of list root
+; r1 - contextual data to pass to the callback
+; r2 - address of the callback
+;
+; Returns:
+; r0 - address of the found entry, or null
+
+    PUSH r8
+    PUSH r9
+    PUSH rA
+    PUSH rB
+    PUSH rC
+    PUSH rD
+
+    READ r0 0x0 r8 ;$LIST_R_FIRST r8 = segment cursor
+    READ r0 0x2 r9 ;$LIST_R_SIZE r9 = entry size
+
+    MOV r1 rC ; rC = context data
+    MOV r2 rD ; rD = callback address
+
+    ;LIST_FIND_CTX_SEGMENT_LOOP
+    MOV r8 r8
+    JEQ 0x14 ;&LIST_FIND_CTX_DONE
+
+        SETHI rB 0x00
+        SETLO rB 0x02
+
+        READ r8 0x1 rA ;$LIST_COUNT
+        MUL rA r9
+        ADD rA rB
+        ADD rA r8 ; rA = first out of bounds address
+
+        ADD rB r8 ; rB = entry cursor
+
+        ;LIST_FIND_CTX_ENTRY_LOOP
+        CMP rB rA
+        JEQ 0x09 ;&LIST_FIND_CTX_ENTRY_LOOP_DONE
+
+            MOV rB r0
+            MOV rC r1
+
+            CALL rD
+
+            MOV r0 r0
+            JNE 0x02 ;&LIST_FIND_CTX_PREP_RETURN
+
+            ADD rB r9 ; cursor += size
+            JMP 0xF7 ;&LIST_FIND_CTX_ENTRY_LOOP
+
+            ;LIST_FIND_CTX_PREP_RETURN
+            MOV rB r0 ; return cursor
+            JMP 0x03 ;&LIST_FIND_CTX_RETURN
+
+        ;LIST_FIND_CTX_ENTRY_LOOP_DONE
+
+        READ r8 0x0 r8 ;$LIST_NEXT cursor = cursor.next
+        JMP 0xEA ;&LIST_FIND_CTX_SEGMENT_LOOP
+
+    ;LIST_FIND_CTX_DONE
+
+    SUB r0 r0
+
+    ;LIST_FIND_CTX_RETURN
+
+    POP rD
+    POP rC
+    POP rB
+    POP rA
+    POP r9
+    POP r8
 
 RET
 
