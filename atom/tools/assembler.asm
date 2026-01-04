@@ -39,15 +39,20 @@ WRITE r0 0x0 rA
 SETLO rA 0x5A ;'Z
 WRITE r0 0x1 rA
 
+SETHI rB &LIST_EACH
+SETLO rB &LIST_EACH
+
+MOV r8 r0
+SETHI r2 &CB_PRINT_RANGE
+SETLO r2 &CB_PRINT_RANGE
+CALL rB
+
 MOV r8 r0
 SETHI r1 0x00 ;'u
 SETLO r1 0x75 ;'u
 SETHI r2 &CB_IN_RANGE
 SETLO r2 &CB_IN_RANGE
-
-SETHI r7 &LIST_EACH
-SETLO r7 &LIST_EACH
-CALL r7
+CALL rB
 
 HALT
 
@@ -80,6 +85,33 @@ HALT
     SETLO r0 0x01
 
     ;CB_IN_RANGE_FALSE
+    RET
+
+;=CB_PRINT_RANGE
+;
+; Print a character range with a hyphen and a
+; newline
+;
+; Params:
+; r0 - range address
+;
+; Returns:
+; r0 - 0x0000
+
+    READ r0 0x0 r1
+    P1WRITE r2 r1
+
+    SETHI r2 0x00
+    SETLO r2 0x2D ;'-
+    P1WRITE r2 r2
+
+    READ r0 0x1 r1
+    P1WRITE r2 r1
+
+    SETLO r2 0x0A ;NEWLINE
+    P1WRITE r2 r2
+
+    SUB r0 r0
     RET
 
 ;$LIST_R_FIRST=0x0
