@@ -92,7 +92,7 @@ RET
         READ r0 0x1 r2 ;$LIST_R_LAST
 
         WRITE r2 0x0 r1 ;$LIST_NEXT
-        WRTIE r0 0x1 r1 ;$LIST_R_LAST
+        WRITE r0 0x1 r1 ;$LIST_R_LAST
 
     ;LIST_ADD_DO_ADD
     READ r1 0x1 r2 ;$LIST_COUNT
