@@ -47,6 +47,22 @@ SETHI r2 &CB_PRINT_RANGE
 SETLO r2 &CB_PRINT_RANGE
 CALL rB
 
+SP rF
+RSRV 0x01
+
+SUB r7 r7
+WRITE rF 0x0 r7
+
+MOV r8 r0
+MOV rF r1
+SETHI r2 &CB_SUM_RANGES
+SETLO r2 &CB_SUM_RANGES
+CALL rB
+
+READ rF 0x0 rF
+
+RLS 0x01
+
 MOV r8 r0
 SETHI r1 0x00 ;'u
 SETLO r1 0x75 ;'u
@@ -85,6 +101,32 @@ HALT
     SETLO r0 0x01
 
     ;CB_IN_RANGE_FALSE
+    RET
+
+;=CB_SUM_RANGES
+;
+; Sum the sizes of the ranges
+;
+; Params:
+; r0 - range address
+; r1 - sum address
+;
+; Returns:
+; r0 - 0x0000
+
+    READ r0 0x0 r2
+    READ r0 0x1 r3
+
+    SETHI r4 0x00
+    SETLO r4 0x01
+    ADD r4 r3
+    SUB r4 r2
+
+    READ r1 0x0 r0
+    ADD r0 r4
+    WRITE r1 0x0 r0
+
+    SUB r0 r0
     RET
 
 ;=CB_PRINT_RANGE
