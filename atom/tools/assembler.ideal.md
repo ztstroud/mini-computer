@@ -160,6 +160,13 @@ PR <VAL:2> r0 r1 ; read from peripheral VAL at address r1 to r0
 PF <VAL:2> r0 r1 ; read flags from peripheral VAL with address r1 to r0
 ```
 
+### Compound instructions
+
+Some instructions often work together. The assembler supports special compound
+instructions that represent multiple instructions.
+
+`L <LOAD_VAL>`: Translates to `LH` and `LL` using the same value.
+
 ## Labels
 
 Labels start with a colon `:`. The identifier immediately following is the name
