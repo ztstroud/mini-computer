@@ -58,8 +58,8 @@ MOV r8 r0
 SETHI r2 &CB_ENTRY_IS
 SETLO r2 &CB_ENTRY_IS
 
-SETHI r7 &LIST_FIND_CTX
-SETLO r7 &LIST_FIND_CTX
+SETHI r7 &LIST_EACH
+SETLO r7 &LIST_EACH
 CALL r7
 
 RLS 0x02
@@ -193,14 +193,15 @@ RET
 
 RET
 
-;=LIST_FIND_CTX
+;=LIST_EACH
 ;
-; Find a value in a list using a callback that take an extra contextual
-; argument.
+; Iterate over the entries in a list, calling a procedure for each one.
 ;
 ; The callback is given the address of an entry in r0 and the contextual
-; argument as r1. It must return a value in r0, 0x0000 to indicate no match or
-; any other value to indicate a match.
+; argument as r1. If the callback returns 0x000 in r0, iteration continues. If
+; returns any other value, the loop is terminated and the address of the entry
+; is returned from LIST_EACH in r0. If no callback returns a non-zero value,
+; LIST_EACH will return 0x0000 in r0.
 ;
 ; The contextual argument cannot be modified by the callback. If you need to
 ; modify data, you can pass a pointer to space you have reserved.
@@ -226,9 +227,9 @@ RET
     MOV r1 rC ; rC = context data
     MOV r2 rD ; rD = callback address
 
-    ;LIST_FIND_CTX_SEGMENT_LOOP
+    ;LIST_EACH_SEGMENT_LOOP
     MOV r8 r8
-    JEQ 0x14 ;&LIST_FIND_CTX_DONE
+    JEQ 0x14 ;&LIST_EACH_DONE
 
         SETHI rB 0x00
         SETLO rB 0x02
@@ -240,9 +241,9 @@ RET
 
         ADD rB r8 ; rB = entry cursor
 
-        ;LIST_FIND_CTX_ENTRY_LOOP
+        ;LIST_EACH_ENTRY_LOOP
         CMP rB rA
-        JEQ 0x09 ;&LIST_FIND_CTX_ENTRY_LOOP_DONE
+        JEQ 0x09 ;&LIST_EACH_ENTRY_LOOP_DONE
 
             MOV rB r0
             MOV rC r1
@@ -250,25 +251,25 @@ RET
             CALL rD
 
             MOV r0 r0
-            JNE 0x02 ;&LIST_FIND_CTX_PREP_RETURN
+            JNE 0x02 ;&LIST_EACH_PREP_RETURN
 
             ADD rB r9 ; cursor += size
-            JMP 0xF7 ;&LIST_FIND_CTX_ENTRY_LOOP
+            JMP 0xF7 ;&LIST_EACH_ENTRY_LOOP
 
-            ;LIST_FIND_CTX_PREP_RETURN
+            ;LIST_EACH_PREP_RETURN
             MOV rB r0 ; return cursor
-            JMP 0x03 ;&LIST_FIND_CTX_RETURN
+            JMP 0x03 ;&LIST_EACH_RETURN
 
-        ;LIST_FIND_CTX_ENTRY_LOOP_DONE
+        ;LIST_EACH_ENTRY_LOOP_DONE
 
         READ r8 0x0 r8 ;$LIST_NEXT cursor = cursor.next
-        JMP 0xEA ;&LIST_FIND_CTX_SEGMENT_LOOP
+        JMP 0xEA ;&LIST_EACH_SEGMENT_LOOP
 
-    ;LIST_FIND_CTX_DONE
+    ;LIST_EACH_DONE
 
     SUB r0 r0
 
-    ;LIST_FIND_CTX_RETURN
+    ;LIST_EACH_RETURN
 
     POP rD
     POP rC
