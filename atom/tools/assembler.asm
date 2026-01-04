@@ -1,7 +1,7 @@
 ; Atom Assembler
 
 SETHI r0 0x00
-SETLO r0 0x03
+SETLO r0 0x02
 SETHI r1 0x00
 SETLO r1 0x02
 
@@ -20,87 +20,67 @@ SETHI r9 &LIST_ADD
 SETLO r9 &LIST_ADD
 
 CALL r9
-SETLO rA 0xF0
+SETLO rA 0x30 ;'0
 WRITE r0 0x0 rA
-SETLO rA 0x08
+SETLO rA 0x39 ;'9
 WRITE r0 0x1 rA
-SETLO rA 0xCB
-WRITE r0 0x2 rA
 
 MOV r8 r0
 CALL r9
-SETLO rA 0x11
+SETLO rA 0x61 ;'a
 WRITE r0 0x0 rA
-SETLO rA 0x22
+SETLO rA 0x7A ;'z
 WRITE r0 0x1 rA
-SETLO rA 0x33
-WRITE r0 0x2 rA
 
 MOV r8 r0
 CALL r9
-SETLO rA 0xAA
+SETLO rA 0x41 ;'A
 WRITE r0 0x0 rA
-SETLO rA 0xBB
+SETLO rA 0x5A ;'Z
 WRITE r0 0x1 rA
-SETLO rA 0xCC
-WRITE r0 0x2 rA
-
-SP r1
-RSRV 0x02
-
-SETHI r7 0x00
-SETLO r7 0x01
-WRITE r1 0x0 r7
-SETLO r7 0x22
-WRITE r1 0x1 r7
 
 MOV r8 r0
-SETHI r2 &CB_ENTRY_IS
-SETLO r2 &CB_ENTRY_IS
+SETHI r1 0x00 ;'u
+SETLO r1 0x75 ;'u
+SETHI r2 &CB_IN_RANGE
+SETLO r2 &CB_IN_RANGE
 
 SETHI r7 &LIST_EACH
 SETLO r7 &LIST_EACH
 CALL r7
-
-RLS 0x02
 
 HALT
 
 ;LABEL_LIST
 0000
 
-;=CB_ENTRY_IS
+;=CB_IN_RANGE
 ;
-; Check if an member of an entry identified
-; by an offset matches a value.
-;
-; The context must be two words. The 0th
-; word is the offset to check, the 1th is the
-; value to compare to.
+; Check if a character is in a character
+; range
 ;
 ; Params:
-; r0 - entry address
-; r1 - context address
+; r0 - range address
+; r1 - character to check
 ;
 ; Returns:
 ; r0 - 1 iff entry matches, 0 otherwise
 
-    READ r1 0x0 r2
-    ADD r0 r2
-
     READ r0 0x0 r2
-    READ r1 0x1 r3
+    READ r0 0x1 r3
 
     SUB r0 r0
 
-    CMP r2 r3
-    JNE 0x01 ;&CB_ENTRY_IS_DONE
+    CMP r1 r2
+    JL 0x03 ;&CB_IN_RANGE_FALSE
+
+    CMP r1 r3
+    JG 0x01 ;&CB_IN_RANGE_FALSE
 
     SETLO r0 0x01
 
-    ;CB_ENTRY_IS_DONE
-
-RET
+    ;CB_IN_RANGE_FALSE
+    RET
 
 ;$LIST_R_FIRST=0x0
 ;$LIST_R_LAST=0x1
